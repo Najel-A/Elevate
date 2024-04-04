@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import EnterView from './UI/EnterView';
 import QuestsView from './UI/QuestsView';
+import SingleQuestView from './UI/SingleQuestView';
 
 const Stack = createStackNavigator();
 
@@ -20,8 +21,15 @@ const App = () => {
         <Stack.Screen
           name="Quests"
           component={QuestsView}
+          options={{ title: 'Quests Screen' }}
+        />
+
+        <Stack.Screen
+          name="SingleQuest"
+          component={SingleQuestView}
           options={{ title: 'Quests Screen' }} // Unique title for Quests screen
         />
+
       </Stack.Navigator>
     </NavigationContainer>
 

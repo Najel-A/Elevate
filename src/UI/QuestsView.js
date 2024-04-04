@@ -1,11 +1,19 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {View, ActivityIndicator, FlatList, TouchableOpacity, Text} from 'react-native';
+import React from 'react';
+import { View, FlatList } from 'react-native';
 import QuestCard from './QuestsCard';
+import questsData from '../Resources/test.json';
 
 const QuestsView = () => {
-    return(
-        <QuestCard/>
-    );
-}
+
+  const renderItem = ({ item }) => <QuestCard quest={item} />;
+
+  return (
+    <FlatList
+      data={questsData}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.ID}
+    />
+  );
+};
 
 export default QuestsView;

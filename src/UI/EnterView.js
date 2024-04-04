@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
+import { View, Text, Button, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native-gesture-handler';
 
@@ -27,6 +27,7 @@ const Enter = () => {
   };
 
   return (
+    
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <View style={{alignItems: 'center'}}>
         <Text style={{padding: 5, opacity: 0.5}}>Are you ready to become better?</Text>
