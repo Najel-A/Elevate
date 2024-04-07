@@ -62,7 +62,7 @@ const QuestCard = ({ quest }) => {
     <Swipeable ref={swipeableRef} renderRightActions={rightSwipeActions}>
       <TouchableOpacity style={styles.container} onPress={onPressQuest}>
         <Text style={styles.name}>{quest.Title}</Text>
-        <Text style={styles.content} numberOfLines={2} ellipsizeMode="tail">{quest.Content}</Text>
+        <Text style={styles.content} numberOfLines={1} ellipsizeMode="tail">{quest.Content}</Text>
         <Text style={styles.posted}>{quest.Posted}</Text>
       </TouchableOpacity>
     </Swipeable>
