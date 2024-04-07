@@ -3,12 +3,14 @@ import { useState } from 'react';
 import { View, Text, Button, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native-gesture-handler';
+import { FIREBASE_AUTH } from '../FirebaseConfig';
 
 const Enter = () => {
   const navigation = useNavigation();
   const [emailInputText, setEmailText] = useState('');
   const [passwordInputText, setPasswordText] = useState('');
-  const [isLoggedOn, setIsLoggedOn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const auth = FIREBASE_AUTH;
 
   const handleEmailChange = email => {
     setEmailText(email);
