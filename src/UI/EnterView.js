@@ -27,8 +27,9 @@ const Enter = () => {
       const response = await signInWithEmailAndPassword(auth, emailInputText, passwordInputText);
       console.log(response);
       navigation.navigate('Quests');  // Navigate to the "Quests" screen
-      setEmailText('');
-      setPasswordText('');
+      // Uncomment this when testing
+      //setEmailText('');
+      //setPasswordText('');
     } catch (error) {
       console.log(error);
       alert('Login Failed: ' + error.message);
@@ -42,7 +43,6 @@ const Enter = () => {
     try {
       const response = await createUserWithEmailAndPassword(auth, emailInputText, passwordInputText);
       console.log(response);
-      
       alert('Check your Email');
       console.log(response.user);
       setEmailText('');
@@ -58,7 +58,7 @@ const Enter = () => {
 
   const onPressEnter = () => {
     if (passwordInputText == "1234") {
-      navigation.navigate('Quests');  // Navigate to the "Quests" screen
+      navigation.navigate('DataBase');  // Navigate to the "Quests" screen
       setEmailText('');
       setPasswordText('');
     }
