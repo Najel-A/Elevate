@@ -1,3 +1,5 @@
+// Use this file for testing with database
+
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { FIRESTORE_DB } from '../FirebaseConfig';
@@ -35,6 +37,7 @@ const DatabaseScreen = () => {
               <Text>{item.title ? item.title : 'N/A'}</Text>
               <Text>{item.reward ? item.reward : 'N/A'}</Text>
               <Text>{item.date ? item.date : 'N/A'}</Text>
+              <Text>{item.id ? item.id : 'N/A'}</Text>
             </View>
           ))}
         </View>

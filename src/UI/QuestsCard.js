@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Swipeable } from 'react-native-gesture-handler';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { useNavigation } from '@react-navigation/native';
-import SingleQuestView from './SingleQuestView';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,6 +34,7 @@ const styles = StyleSheet.create({
 });
 
 const QuestCard = ({ quest }) => {
+  const [loading, setLoading] = useState(true);
   const swipeableRef = React.useRef(null);
   const navigation = useNavigation();
 
@@ -61,9 +61,10 @@ const QuestCard = ({ quest }) => {
   return (
     <Swipeable ref={swipeableRef} renderRightActions={rightSwipeActions}>
       <TouchableOpacity style={styles.container} onPress={onPressQuest}>
-        <Text style={styles.name}>{quest.Title}</Text>
-        <Text style={styles.content} numberOfLines={1} ellipsizeMode="tail">{quest.Content}</Text>
-        <Text style={styles.posted}>{quest.Posted}</Text>
+        <Text style={styles.name}>{quest.title}</Text>
+        <Text style={styles.content} numberOfLines={1} ellipsizeMode="tail">{quest.reward}</Text>
+        <Text style={styles.posted}>{quest.date}</Text>
+        <Text>{quest.id}</Text>
       </TouchableOpacity>
     </Swipeable>
   );

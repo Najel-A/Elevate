@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -17,22 +18,20 @@ const styles = StyleSheet.create({
 });
 
 const SingleQuestView = () => {
-  const route = useRoute(); // Get the route object
-  const navigation = useNavigation(); // Get the navigation object
-  const { quest } = route.params; // Access the quest object from params
+  const route = useRoute();
+  const navigation = useNavigation();
+  const { quest } = route.params;
 
-  // Function to dynamically set the screen title
   React.useLayoutEffect(() => {
-    navigation.setOptions({ title: quest.Title }); // Set the screen title to the quest's title
+    navigation.setOptions({ title: quest.title });
   }, [navigation, quest.Title]);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.content}>{quest.Content}</Text>
-      {/* <Text>{quest.Posted}</Text> */}
+      <Text style={styles.content}>{quest.reward}</Text>
+      <Text>{quest.date}</Text>
     </View>
   );
 };
 
 export default SingleQuestView;
-

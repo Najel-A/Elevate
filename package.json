@@ -13,6 +13,7 @@
     "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/stack": "^6.3.29",
+    "@testing-library/react-native": "^12.4.5",
     "dotenv": "^16.4.5",
     "firebase": "^10.10.0",
     "link": "^2.1.0",

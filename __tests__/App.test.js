@@ -2,9 +2,16 @@
  * @format
  */
 
-import 'react-native';
+// import 'react-native';
 import React from 'react';
-import App from '../App';
+// import {
+//   render,
+//   screen,
+//   fireEvent,
+//   cleanup,
+// } from '@testing-library/react-native';
+
+import App from '../src/App';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
