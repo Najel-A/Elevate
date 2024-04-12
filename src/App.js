@@ -6,6 +6,7 @@ import EnterView from './UI/EnterView';
 import QuestsView from './UI/QuestsView';
 import SingleQuestView from './UI/SingleQuestView';
 import DatabaseScreen from './UI/DataBase';
+import AddQuestView from './UI/AddQuestView';
 
 const Stack = createStackNavigator();
 
@@ -28,13 +29,19 @@ const App = () => {
         <Stack.Screen
           name="SingleQuest"
           component={SingleQuestView}
-          options={{ title: 'Quests Screen' }} // Unique title for Quests screen
+          options={{ title: 'Quests Screen' }}
         />
 
         <Stack.Screen
           name="DataBase"
           component={DatabaseScreen}
-          options={{ title: 'DataBase Screen' }} // Unique title for Quests screen
+          options={{ title: 'DataBase Screen' }}
+        />
+
+        <Stack.Screen
+          name="AddQuest"
+          component={AddQuestView}
+          options={{ title: 'Add Quest' }}
         />
 
       </Stack.Navigator>

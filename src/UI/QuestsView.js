@@ -1,9 +1,10 @@
 import { React, useState, useEffect } from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import QuestCard from './QuestsCard';
 import questsData from '../Resources/test.json';
 import { FIRESTORE_DB } from '../FirebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 
 // Rendering from the test.json file
 // const QuestsView = () => {
@@ -21,9 +22,13 @@ import { collection, getDocs } from 'firebase/firestore';
 
 // export default QuestsView;
 
-const QuestsView = () => {
+const QuestsView = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const addQuestPress = () => {
+    navigation.navigate('AddQuest');
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,9 +42,22 @@ const QuestsView = () => {
         setLoading(false);
       }
     };
-
+  
     fetchData();
+  
+    // Use free icon later on?
+    navigation.setOptions({
+      headerRight: () => (
+        <View style={{ flexDirection: 'row', paddingRight: 10 }}>
+          <TouchableOpacity onPress={addQuestPress}>
+            <Text>ADD</Text>
+          </TouchableOpacity>
+        </View>
+      )
+    });
+
   }, []);
+  
 
   const renderItem = ({ item }) => <QuestCard quest={item} />;
 
