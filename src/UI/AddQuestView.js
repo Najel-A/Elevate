@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, TextInput, Button} from 'react-native';
+import { FIRESTORE_DB } from '../FirebaseConfig';
+import { collection, getDocs, addDoc } from 'firebase/firestore';
 
 const styles = StyleSheet.create({
     container: {
@@ -26,6 +28,27 @@ const styles = StyleSheet.create({
 const AddQuestView = ({ navigation }) => {
     const [addQuestText, setAddQuestText] = useState('');
 
+    const generateTimeStamp = () => {
+        
+        const currentDate = new Date();
+
+        const day = currentDate.getDate();
+        const month = currentDate.getMonth() + 1; // Month is zero-based, so we add 1
+        const year = currentDate.getFullYear() % 100; // Get last two digits of the year
+
+        
+        const hours = currentDate.getHours();
+        const minutes = currentDate.getMinutes();
+        const seconds = currentDate.getSeconds();
+
+       
+        const formattedDate = `${month}/${day}/${year} ${hours}:${minutes}:${seconds}`;
+
+        // console.log("Formatted date and time:", formattedDate);
+        return formattedDate;
+
+    }
+
     const handleQuestChange = Quest => {
         setAddQuestText(Quest);
     };
@@ -35,12 +58,25 @@ const AddQuestView = ({ navigation }) => {
     };
 
     const handleAddPress = () => {
-
+        handleAddQuest();
+        navigation.goBack();
     }
 
-    const handleAddQuest = async() =>{
-        // Do firebase logic here
+    const handleAddQuest = async () => {
+        const timeStamp = generateTimeStamp();
+        try {
+            // Do firebase logic here
+            await addDoc(collection(FIRESTORE_DB, "Quests"), {
+                title: addQuestText,
+                reward: "Need to fix this later",
+                date: timeStamp,
+            });
+            console.log("Quest added successfully!");
+        } catch (error) {
+            console.error("Error adding quest:", error);
+        }
     }
+    
     
     return (
         <View style={styles.container}>
@@ -78,7 +114,7 @@ const AddQuestView = ({ navigation }) => {
                 <View style={{marginLeft: 10}}>
                 <Button 
                     title="Add"  
-                    // onPress={}
+                    onPress={handleAddPress}
                     accessibilityLabel="add"
                 />
                 </View>

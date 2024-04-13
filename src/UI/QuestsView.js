@@ -4,7 +4,7 @@ import QuestCard from './QuestsCard';
 import questsData from '../Resources/test.json';
 import { FIRESTORE_DB } from '../FirebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 
 // Rendering from the test.json file
 // const QuestsView = () => {
@@ -25,6 +25,7 @@ import { useNavigation } from '@react-navigation/native';
 const QuestsView = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const isFocused = useIsFocused(); // Hook to check if screen is focused
 
   const addQuestPress = () => {
     navigation.navigate('AddQuest');
@@ -33,19 +34,23 @@ const QuestsView = ({ navigation }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const querySnapshot = await getDocs(collection(FIRESTORE_DB, 'Quests'));
-        const fetchedData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setData(fetchedData);
-        setLoading(false);
+        if (isFocused) { // Only fetch data if screen is focused
+          const querySnapshot = await getDocs(collection(FIRESTORE_DB, 'Quests'));
+          const fetchedData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          setData(fetchedData);
+          setLoading(false);
+        }
       } catch (error) {
         console.error('Error fetching data: ', error);
         setLoading(false);
       }
     };
-  
-    fetchData();
-  
-    // Use free icon later on?
+
+    fetchData(); // Fetch data on component mount and when the screen is focused
+  }, [isFocused]);
+
+  // Set navigation options
+  useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <View style={{ flexDirection: 'row', paddingRight: 10 }}>
@@ -55,8 +60,8 @@ const QuestsView = ({ navigation }) => {
         </View>
       )
     });
+  }, [navigation]);
 
-  }, []);
   
 
   const renderItem = ({ item }) => <QuestCard quest={item} />;
