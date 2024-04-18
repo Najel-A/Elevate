@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { useNavigation } from '@react-navigation/native';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { FIRESTORE_DB } from '../FirebaseConfig';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,7 +35,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const QuestCard = ({ quest }) => {
+const QuestCard = ({ quest, onDelete }) => {
   const [loading, setLoading] = useState(true);
   const swipeableRef = React.useRef(null);
   const navigation = useNavigation();
@@ -42,9 +44,20 @@ const QuestCard = ({ quest }) => {
     navigation.navigate('SingleQuest', { quest });
   };
 
+  const handleDelete = async () => {
+    try {
+      // Call Firestore delete function to delete the quest document
+      console.log('Quest Deleted:', quest.id);
+      await deleteDoc(doc(FIRESTORE_DB, 'Quests', quest.id));
+      onDelete(quest.id);
+    } catch (error) {
+      console.error('Error deleting quest:', error);
+    }
+  };
+
   const rightSwipeActions = () => {
     return (
-      <View
+      <TouchableOpacity
         style={{
           backgroundColor: 'red',
           justifyContent: 'center',
@@ -52,9 +65,10 @@ const QuestCard = ({ quest }) => {
           padding: 25,
           marginBottom: 10,
           marginTop: 10
-        }}>
-        {/* Swipe actions to delete, do later */}
-      </View>
+        }}
+        onPress={handleDelete}>
+        <Text style={{ color: 'white' }}>Delete</Text>
+      </TouchableOpacity>
     );
   };
 

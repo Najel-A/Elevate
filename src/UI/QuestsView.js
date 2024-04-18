@@ -31,6 +31,20 @@ const QuestsView = ({ navigation }) => {
     navigation.navigate('AddQuest');
   }
 
+  const handleDeleteQuest = async (deletedQuestId) => {
+    try {
+      // Remove the deleted quest from the quests state
+      setData(prevQuests => prevQuests.filter(quest => quest.id !== deletedQuestId));
+
+      // Alternatively, you could refetch the data to ensure consistency with the server
+      // const querySnapshot = await getDocs(collection(FIRESTORE_DB, 'Quests'));
+      // const fetchedQuests = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      // setQuests(fetchedQuests);
+    } catch (error) {
+      console.error('Error deleting quest: ', error);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -64,7 +78,7 @@ const QuestsView = ({ navigation }) => {
 
   
 
-  const renderItem = ({ item }) => <QuestCard quest={item} />;
+  const renderItem = ({ item }) => <QuestCard quest={item} onDelete={handleDeleteQuest} />;
 
   return (
     <View>
