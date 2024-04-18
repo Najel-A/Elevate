@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import { Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
 import QuestCard from './QuestsCard';
 import questsData from '../Resources/test.json';
 import { FIRESTORE_DB } from '../FirebaseConfig';
@@ -21,6 +21,20 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 // };
 
 // export default QuestsView;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative', // Ensure the container has a positioning context
+  },
+  activityIndicator: {
+    position: 'absolute',
+    alignSelf: 'center',
+  },
+});
+
 
 const QuestsView = ({ navigation }) => {
   const [data, setData] = useState([]);
@@ -81,9 +95,13 @@ const QuestsView = ({ navigation }) => {
   const renderItem = ({ item }) => <QuestCard quest={item} onDelete={handleDeleteQuest} />;
 
   return (
-    <View>
+    <View style={loading ? styles.container : null}>
       {loading ? (
-        <Text>Loading...</Text>
+        <ActivityIndicator
+          size={'large'}
+          color={'#1893F8'}
+          style={styles.activityIndicator}
+        />
       ) : (
         <FlatList
           data={data}
