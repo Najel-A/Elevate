@@ -5,6 +5,8 @@ import questsData from '../Resources/test.json';
 import { FIRESTORE_DB } from '../FirebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Icon } from 'react-native-elements';
 
 // Rendering from the test.json file
 // const QuestsView = () => {
@@ -80,6 +82,17 @@ const QuestsView = ({ navigation }) => {
   // Set navigation options
   useEffect(() => {
     navigation.setOptions({
+      headerLeft: () => {
+        return (
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Icon
+              type="material-community"
+              name="logout"
+              style={{ paddingLeft: 10 }}
+            />
+          </TouchableOpacity>
+        );
+      },
       headerRight: () => (
         <View style={{ flexDirection: 'row', paddingRight: 10 }}>
           <TouchableOpacity onPress={addQuestPress}>

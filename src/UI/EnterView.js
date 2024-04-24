@@ -1,10 +1,25 @@
 import React from 'react';
 import { useState } from 'react';
-import { View, Text, Button, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { View, Text, Button, TouchableOpacity, KeyboardAvoidingView, StyleSheet, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native-gesture-handler';
 import { FIREBASE_AUTH } from '../FirebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { MaterialIcons } from '@expo/vector-icons';
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative', // Ensure the container has a positioning context
+  },
+  activityIndicator: {
+    position: 'relative',
+    alignSelf: 'center',
+  },
+});
 
 const Enter = () => {
   const navigation = useNavigation();
@@ -21,8 +36,15 @@ const Enter = () => {
     setPasswordText(password);
   };
 
+
+  // using this for testing
+  const wait = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+  };
+
   const login = async () => {
     setIsLoading(true);
+    await wait(2000);
     try {
       const response = await signInWithEmailAndPassword(auth, emailInputText, passwordInputText);
       console.log(response);
@@ -100,6 +122,13 @@ const Enter = () => {
         >
           <Text style={{color: 'white'}}>Register</Text>
         </TouchableOpacity>
+
+        {isLoading && <ActivityIndicator
+          size={'large'}
+          color={'#1893F8'}
+          style={styles.activityIndicator}
+         />}
+
 
       </View>
     </View>

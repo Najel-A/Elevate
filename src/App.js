@@ -17,13 +17,16 @@ const App = () => {
         <Stack.Screen
           name="Enter"
           component={EnterView}
-          options={{ title: 'Enter Screen' }}
+          options={{ headerShown: false }}
         />
 
         <Stack.Screen
           name="Quests"
           component={QuestsView}
-          options={{ title: 'Quests Screen' }}
+          options={{ 
+            title: 'Elevate',
+            headerTitleAlign: 'center' 
+          }}
         />
 
         <Stack.Screen
