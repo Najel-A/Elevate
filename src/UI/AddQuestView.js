@@ -29,25 +29,24 @@ const AddQuestView = ({ navigation }) => {
     const [addQuestText, setAddQuestText] = useState('');
 
     const generateTimeStamp = () => {
-        
         const currentDate = new Date();
-
+    
         const day = currentDate.getDate();
-        const month = currentDate.getMonth() + 1; // Month is zero-based, so we add 1
-        const year = currentDate.getFullYear() % 100; // Get last two digits of the year
-
-        
-        const hours = currentDate.getHours();
+        const month = currentDate.getMonth() + 1;
+        const year = currentDate.getFullYear() % 100;
+    
+        // Convert hours to 12-hour format
+        let hours = currentDate.getHours();
+        const ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12 || 12;
+    
         const minutes = currentDate.getMinutes();
-        const seconds = currentDate.getSeconds();
-
-       
-        const formattedDate = `${month}/${day}/${year} ${hours}:${minutes}:${seconds}`;
-
-        // console.log("Formatted date and time:", formattedDate);
+    
+        const formattedDate = `${month}/${day}/${year} ${hours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
+    
         return formattedDate;
-
-    }
+    };
+    
 
     const handleQuestChange = Quest => {
         setAddQuestText(Quest);

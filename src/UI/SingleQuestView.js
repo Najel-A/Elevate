@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import Footer from './Footer';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,7 +31,9 @@ const SingleQuestView = () => {
     <View style={styles.container}>
       <Text style={styles.content}>{quest.reward}</Text>
       <Text>{quest.date}</Text>
+      <Footer/>
     </View>
+    
   );
 };
 

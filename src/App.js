@@ -7,6 +7,7 @@ import QuestsView from './UI/QuestsView';
 import SingleQuestView from './UI/SingleQuestView';
 import DatabaseScreen from './UI/DataBase';
 import AddQuestView from './UI/AddQuestView';
+import ProfileView from './UI/ProfileView';
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,12 @@ const App = () => {
           name="AddQuest"
           component={AddQuestView}
           options={{ title: 'Add Quest' }}
+        />
+
+        <Stack.Screen
+          name="Profile"
+          component={ProfileView}
+          options={{ title: '$User' }}
         />
 
       </Stack.Navigator>

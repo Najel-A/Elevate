@@ -1,28 +1,12 @@
 import { React, useState, useEffect } from 'react';
-import { Text, View, FlatList, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, ActivityIndicator, StyleSheet, ScrollView } from 'react-native';
 import QuestCard from './QuestsCard';
 import questsData from '../Resources/test.json';
 import { FIRESTORE_DB } from '../FirebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Icon } from 'react-native-elements';
-
-// Rendering from the test.json file
-// const QuestsView = () => {
-
-//   const renderItem = ({ item }) => <QuestCard quest={item} />;
-
-//   return (
-//     <FlatList
-//       data={questsData}
-//       renderItem={renderItem}
-//       keyExtractor={(item) => item.ID}
-//     />
-//   );
-// };
-
-// export default QuestsView;
+import Footer from './Footer';
 
 const styles = StyleSheet.create({
   container: {
@@ -44,7 +28,7 @@ const QuestsView = ({ navigation }) => {
   const isFocused = useIsFocused(); // Hook to check if screen is focused
 
   const addQuestPress = () => {
-    navigation.navigate('AddQuest');
+    navigation.navigate('Profile');
   }
 
   const handleDeleteQuest = async (deletedQuestId) => {
@@ -96,7 +80,11 @@ const QuestsView = ({ navigation }) => {
       headerRight: () => (
         <View style={{ flexDirection: 'row', paddingRight: 10 }}>
           <TouchableOpacity onPress={addQuestPress}>
-            <Text>ADD</Text>
+            <Icon
+              type="material-community"
+              name="human-male"
+              style={{ paddingLeft: 10 }}
+            />
           </TouchableOpacity>
         </View>
       )
@@ -122,6 +110,7 @@ const QuestsView = ({ navigation }) => {
           keyExtractor={item => item.id}
         />
       )}
+    <Footer navigation={navigation}/>
     </View>
   );
 }
