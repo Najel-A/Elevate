@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'relative', // Ensure the container has a positioning context
+    position: 'relative',
+    zIndex: 6,
   },
   activityIndicator: {
     position: 'absolute',

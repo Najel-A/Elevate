@@ -14,6 +14,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: '#ECECEC',
+    position: 'relative', // Add this to ensure z-index works
+    zIndex: 2, // Add this to ensure it appears above the footer
   },
   name: {
     fontSize: 16,
